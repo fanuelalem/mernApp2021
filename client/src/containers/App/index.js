@@ -22,8 +22,8 @@ class App extends Component {
   
 
 componentDidMount = () => {
-    
-
+    this.getMyImage()
+    this.getNames()
  }
 
 getMyImage = () => {
