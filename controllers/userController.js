@@ -39,7 +39,7 @@ file.mv(`${__dirname}/../client/public/images/${file.name}`, async(err)=>{
     return res.status(500).send(err)
   }
 })
-const newImage = await new Image({fileName:file.name,filePath:`/images/${file.name}`}).save();
+const newImage = await new Image({fileName:file.name,filePath:`https://mernapp20210.herokuapp.com/images/${file.name}`}).save();
 return res.status(200).json(newImage)
   } catch(e){
     return res.status(403).json({e:"this function has failed"})
