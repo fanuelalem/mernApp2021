@@ -3,21 +3,53 @@ import { Route } from 'react-router-dom';
 import { Grid, Message } from 'semantic-ui-react';
 import './../../index.css'
 import axios from 'axios';
- 
+import ImageUploader from 'react-images-upload';
 
- 
 
 class App extends Component {
 
   state={
     name:"",
     body:"",
-    nameList:[]
+    nameList:[],
+    pictures:[],
+    file:"",
+    fileName:"",
+    uploadedFile:{},
+    myImages:[],
   }
 
-  componentDidMount = () => {
+  
+
+componentDidMount = () => {
+    this.getMyImage()
     this.getNames()
-   }
+
+ }
+
+getMyImage = () => {
+    axios.get('/api/user/myimages')
+    .then((response)=>{
+        this.setState({myImages:response.data})
+    })
+}
+
+handleRequest = (event) => {
+    event.preventDefault()
+    const data = new FormData();
+    const {file} = this.state
+    data.append('file', file)
+     
+    axios.post('/api/user/myimages',data)
+    .then((response)=>{
+        const {fileName,filePath} = response.data
+        this.setState({uploadedFile:response.data})
+        this.getMyImage()
+     })
+     
+     
+}
+
  
 getNames = () => {
   axios.get('/api/user/name')
@@ -52,6 +84,38 @@ this.setState({posts:response.data})
 
     </div>
 ))}
+
+<div style={{margin:'70px 0 0 0'}}>
+ <input onChange={(event)=>{
+ const file = event.target.files[0]
+ this.setState({file:file})
+ }}
+ type='file'>
+ </input>
+
+           
+
+ 
+<button className='axiosRequestImages'   onClick={this.handleRequest}> add a picture</button>
+ 
+
+{this.state.myImages.map((item)=>(
+    <div>
+        {/* <p>{item.fileName}</p> */}
+        <img 
+        style={{width:'200px',
+        height:'200px',
+        float:'left',margin:"20px",
+        borderRadius:'9px', backgroundColor:'white'}}
+        src={item.filePath}
+        />
+        {console.log(item.filePath,'filepath console.log src')}
+    </div>
+ ))
+ }
+
+
+</div>
 
       </div>
     );

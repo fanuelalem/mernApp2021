@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
- 
+const fileUpload = require('express-fileupload')
+const cors = require('cors')
 
 const app = express();
 const routes = require('./routes');
@@ -10,6 +11,8 @@ const PORT = process.env.PORT || 5000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(fileUpload())
+app.use(cors())
  
  
  if (process.env.NODE_ENV === 'production') {

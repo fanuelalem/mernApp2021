@@ -1,7 +1,6 @@
 const { text } = require('body-parser');
-const { User, Stock, Image } = require('../models/index');
-const Name = require('../models/Name');
-  
+const { Name, Image } = require('../models/index');
+   
 module.exports = {
 
 addName: async(req,res)=>{
@@ -23,5 +22,37 @@ getName: async (req,res)=>{
   } catch (e) {
     return res.status(403).json({ e });
   }
+},
+postMyImages: async (req, res) => {
+  const { fileName,filePath } = req.body;
+ 
+  if(req.files === null) {
+    return res.status(400).json({msf:'no file uploaded'})
+  }
+  try {
+    const file = req.files.file
+ 
+    file.mv(`${__dirname}/../client/public/images/${file.name}`,async (err)=>{
+      if(err){
+        console.error(err)
+        return res.status(500).send(err)
+      }
+       const newImage = await new Image({fileName:file.name,filePath:`/images/${file.name}`}).save();
+      
+      return res.status(200).json(newImage);
+    })}catch (e) {
+    console.log('error not hitting ')
+    return res.status(403).json({ e });
+  }
+   
+},
+getMyImages: async (req, res) => {
+  try {
+    const images = await Image.find();
+    return res.json(images);
+  } catch (e) {
+    return res.status(403).json({ e });
+  }
+ 
 }
 }
