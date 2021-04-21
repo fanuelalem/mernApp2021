@@ -23,20 +23,45 @@ getName: async (req,res)=>{
     return res.status(403).json({ e });
   }
 },
+postMyImages: async (req,res) => {
+   const { fileName,filePath } = req.files;
+
+  if(req.files === null) {
+    return res.status(400).json({msf:'no file uploaded'})
+  }
+  try{
+
+const file = req.files.file
+
+file.mv(`${__dirname}/../client/public/images/${file.name}`, async(err)=>{
+  if(err){
+    console.error(err)
+    return res.status(500).send(err)
+  }
+})
+const newImage = await new Image({fileName:file.name,filePath:`/images/${file.name}`}).save();
+return res.status(200).json(newImage)
+  } catch(e){
+    return res.status(403).json({e:"this function has failed"})
+  }
+},
 postMyImages: async (req, res) => {
+  
   const { fileName,filePath } = req.body;
- 
+
   if(req.files === null) {
     return res.status(400).json({msf:'no file uploaded'})
   }
   try {
+
     const file = req.files.file
- 
+
     file.mv(`${__dirname}/../client/public/images/${file.name}`,async (err)=>{
       if(err){
         console.error(err)
         return res.status(500).send(err)
       }
+
        const newImage = await new Image({fileName:file.name,filePath:`/images/${file.name}`}).save();
       
       return res.status(200).json(newImage);

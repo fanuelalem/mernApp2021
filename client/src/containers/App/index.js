@@ -31,7 +31,7 @@ getMyImage = () => {
     axios.get('/api/user/myimages')
     .then((response)=>{
         this.setState({myImages:response.data})
-    })
+     })
 }
 
 handleRequest = (event) => {
@@ -39,17 +39,15 @@ handleRequest = (event) => {
     const data = new FormData();
     const {file} = this.state
     data.append('file', file)
-     
+
     axios.post('/api/user/myimages',data)
     .then((response)=>{
-        const {fileName,filePath} = response.data
         this.setState({uploadedFile:response.data})
+        console.log(response.data,'uploadedfile')
         this.getMyImage()
      })
-     
-     
+       
 }
-
  
 getNames = () => {
   axios.get('/api/user/name')
@@ -86,6 +84,9 @@ this.setState({posts:response.data})
 ))}
 
 <div style={{margin:'70px 0 0 0'}}>
+
+
+  
  <input onChange={(event)=>{
  const file = event.target.files[0]
  this.setState({file:file})
@@ -95,14 +96,11 @@ this.setState({posts:response.data})
 
            
 
+ <button className='axiosRequestImages' onClick={this.handleRequest}> add a picture</button>
  
-<button className='axiosRequestImages'   onClick={this.handleRequest}> add a picture</button>
- 
-
-{this.state.myImages.map((item)=>(
+ {this.state.myImages.map((item)=>(
     <div>
-        {/* <p>{item.fileName}</p> */}
-        <img 
+         <img 
         style={{width:'200px',
         height:'200px',
         float:'left',margin:"20px",
@@ -112,7 +110,7 @@ this.setState({posts:response.data})
      </div>
  ))
  }
-
+ 
 
 </div>
 
