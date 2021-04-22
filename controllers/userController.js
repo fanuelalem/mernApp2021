@@ -40,7 +40,7 @@ postMyImages: async (req, res) => {
         return res.status(500).send(err)
       }
 
-       const newImage = await new Image({fileName:file.name,filePath:`api/user/myimages/${file.name}`}).save();
+       const newImage = await new Image({fileName:file.name,filePath:`images/${file.name}`}).save();
       
       return res.status(200).json(newImage);
     })}catch (e) {
