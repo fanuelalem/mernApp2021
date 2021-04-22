@@ -4,7 +4,7 @@ const ImageSchema = new Schema({
     filePath: {
       type:String
   },
-  fileName:{
+    fileName:{
       type:String
   }
  });
