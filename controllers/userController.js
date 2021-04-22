@@ -34,13 +34,14 @@ postMyImages: async (req, res) => {
 
     const file = req.files.file
 
-    file.mv(`${__dirname}/../client/src/containers/images/${file.name}`,async (err)=>{
+    file.mv(`${__dirname}/../client/public/images/${file.name}`,async (err)=>{
       if(err){
         console.error(err)
         return res.status(500).send(err)
       }
 
-       const newImage = await new Image({fileName:file.name,filePath:`./../images/${file.name}`}).save();
+       const newImage = await new Image({fileName:file.name,filePath:`images/${file.name}`}).save();
+        console.log(newImage,'new image')
       
       return res.status(200).json(newImage);
     })}catch (e) {
