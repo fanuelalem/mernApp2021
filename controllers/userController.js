@@ -34,7 +34,7 @@ postMyImages: async (req, res) => {
 
     const file = req.files.file
 
-    file.mv(`${__dirname}/../client/public/images/${file.name}`,async (err)=>{
+    file.mv(`${__dirname}/https://mernapp20210.herokuapp.com/images/${file.name}`,async (err)=>{
       if(err){
         console.error(err)
         return res.status(500).send(err)
