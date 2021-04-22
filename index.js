@@ -12,13 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(fileUpload())
-const corsOptions = {
-  origin:'https://mernapp20210.herokuapp.com/',
-  optionsSuccessStatus:200
-}
-app.use(cors(corsOptions))
-app.options('*',cors())
  
+app.use(cors())
+  
  
  if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
