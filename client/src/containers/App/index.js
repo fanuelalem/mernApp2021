@@ -5,7 +5,8 @@ import './../../index.css'
 import axios from 'axios';
 import ImageUploader from 'react-images-upload';
 
-
+import pic from './../images/city.png'
+   
 class App extends Component {
 
   state={
@@ -106,13 +107,13 @@ this.setState({posts:response.data})
         float:'left',margin:"20px",
         borderRadius:'9px', backgroundColor:'white'}}
         src={item.filePath}
+        
         />
      </div>
  ))
  }
- 
-
-</div>
+   
+ </div>
 
       </div>
     );
