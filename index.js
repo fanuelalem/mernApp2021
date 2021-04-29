@@ -2,8 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload')
 const cors = require('cors')
-
-
+ 
 
 
  const app = express();
@@ -23,6 +22,7 @@ app.use(cors())
   app.use(express.static('client/build'));
 
 }
+app.get('/*', (req, res) => res.send('./client/public/index.html'));
 
 app.use("/",routes);
  
