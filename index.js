@@ -2,10 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload')
 const cors = require('cors')
+const path = require('path')
  
 
 
- const app = express();
+const app = express();
 const routes = require('./routes');
 const PORT = process.env.PORT || 5000;
 // Setup middlewares
@@ -22,8 +23,9 @@ app.use(cors())
   app.use(express.static('client/build'));
 
 }
-app.get('/*', (req, res) => res.send('./client/public/index.html'));
-
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 app.use("/",routes);
  
  // Connect database

@@ -32,7 +32,7 @@ getMyImage = () => {
     .then((response)=>{
         this.setState({myImages:response.data})
      })
-}
+ }
 
 handleRequest = (event) => {
     event.preventDefault()
@@ -51,7 +51,9 @@ handleRequest = (event) => {
 getNames = () => {
   axios.get('/api/user/name')
   .then((response)=>{
-    this.setState({nameList:response.data})
+    this.setState({nameList:response.data},()=>{
+      console.log(response.data,'response data')
+    })
     this.getNames()
 
   })
@@ -73,19 +75,15 @@ this.setState({posts:response.data})
 
          <button onClick={this.postName} type='submit'>submit</button>
 
-
-{this.state.nameList.map((item,id)=>(
-  <div>
-
-<p key={id}>{item.text}</p>
-
-    </div>
-))}
+         {this.state.nameList.map((item)=>(
+    <div>
+      <p>{item.text}</p>
+      </div>
+  ))}
+ 
 
 <div style={{margin:'70px 0 0 0'}}>
 
-
-  
  <input onChange={(event)=>{
  const file = event.target.files[0]
  this.setState({file:file})
@@ -96,21 +94,7 @@ this.setState({posts:response.data})
 
  <button className='axiosRequestImages' onClick={this.handleRequest}> add a picture</button>
  
- {this.state.myImages.map((item)=>(
-
-<div>
-        <img 
-        style={{width:'200px',
-        height:'200px',
-        float:'left',margin:"20px",
-        borderRadius:'9px', backgroundColor:'white'}}
-        src={item.filePath}
-        
-         />
-{console.log(item.filePath,'this is filepath')}
-     </div>
- ))
- }
+  
    
  </div>
 

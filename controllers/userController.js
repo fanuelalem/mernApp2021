@@ -1,6 +1,7 @@
 const { text } = require('body-parser');
 const { Name, Image } = require('../models/index');
-    
+const path = require('path')
+
 module.exports = {
 
 addName: async(req,res)=>{
