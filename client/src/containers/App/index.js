@@ -42,8 +42,7 @@ handleRequest = (event) => {
      axios.post('/api/user/myimages',data)
     .then((response)=>{
         this.setState({uploadedFile:response.data})
-        console.log(response.data,'uploadedfile')
-        this.getMyImage()
+         this.getMyImage()
      })
        
 }
@@ -51,9 +50,7 @@ handleRequest = (event) => {
 getNames = () => {
   axios.get('/api/user/name')
   .then((response)=>{
-    this.setState({nameList:response.data},()=>{
-      console.log(response.data,'response data')
-    })
+    this.setState({nameList:response.data})
     this.getNames()
 
   })
@@ -61,7 +58,6 @@ getNames = () => {
  postName = () => { 
     axios.post('/api/user/name',{text:'jljl'})
    .then((response)=>{
-
 this.setState({posts:response.data})
   })
  }
@@ -95,7 +91,9 @@ this.setState({posts:response.data})
  <button className='axiosRequestImages' onClick={this.handleRequest}> add a picture</button>
  
   
-   
+  {this.state.myImages.map((item)=>(
+    <img style={{width:"200px",height:"200px",marginRight:'20px',marginTop:"15px"}} src={item.filePath}></img>
+  ))}
  </div>
 
       </div>
