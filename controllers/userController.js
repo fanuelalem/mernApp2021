@@ -37,7 +37,7 @@ postMyImages: async (req, res) => {
 
     file.mv(`${__dirname}/../client/public/images/${file.name}`,async (err)=>{
       if(err){
-        console.error(err)
+        console.error('unable to move file')
         return res.status(500).send(err)
       }
 
